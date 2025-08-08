@@ -41,8 +41,8 @@ func scanGitFolders(folders []string, folder string) []string {
 	for _, file := range files {
 		if file.IsDir() {
 			if file.Name() == ".git" {
-				// trim .git stuff we added
-				path = strings.TrimSuffix(path, ".git")
+				// We found a git repository, add the parent folder
+				path = folder
 				fmt.Println(path)
 				folders = append(folders, path)
 				continue
@@ -86,6 +86,6 @@ func joinSlices(newRepos []string, oldRepos []string) []string {
 }
 
 func dumpSlicesToFile(repos []string, filePath string) {
-	content := strings.Join(repos, "\n")
-	os.WriteFile(filePath, []byte(content), 0755)
+	content := strings.Join(repos, "\n") + "\n"
+	os.WriteFile(filePath, []byte(content), 0644)
 }
