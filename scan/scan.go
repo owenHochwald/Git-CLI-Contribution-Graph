@@ -11,7 +11,7 @@ import (
 
 func Scan(folder string) {
 	repos := recursiveScanFolder(folder)
-	filePath := getDotFilePath()
+	filePath := GetDotFilePath()
 	addNewSliceElementsToFile(filePath, repos)
 	fmt.Printf("\n\nAdded %d new repos to scan\n", len(repos))
 }
@@ -60,7 +60,7 @@ func scanGitFolders(folders []string, folder string) []string {
 
 }
 
-func getDotFilePath() string {
+func GetDotFilePath() string {
 	usr, err := user.Current()
 	if err != nil {
 		log.Fatal(err)

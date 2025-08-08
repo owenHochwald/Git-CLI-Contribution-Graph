@@ -3,15 +3,9 @@ package main
 import (
 	"flag"
 	"git_contribution_cli/scan"
+	"git_contribution_cli/stats"
 )
 
-// scan a path and crawl it including its subdirectories to find git repos
-
-
-// generates the nice contributions graph
-func stats(email string) {
-	print("stats")
-}
 
 func main() {
 	var folder string
@@ -26,6 +20,6 @@ func main() {
 		return
 	}
 
-	stats(email)
+	stats.Stats(email)
 	println()
 }
