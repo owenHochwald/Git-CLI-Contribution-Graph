@@ -2,6 +2,7 @@ package scan
 
 import (
 	"fmt"
+	"git_contribution_cli/utils"
 	"log"
 	"os"
 	"os/user"
@@ -70,5 +71,21 @@ func getDotFilePath() string {
 }
 
 func addNewSliceElementsToFile(filePath string, repos []string) {
+	oldRepos := utils.ParseFileLinesToSlices(filePath)
+	repos = joinSlices(repos, oldRepos)
+	dumpSlicesToFile(repos, filePath)
+}
 
+func joinSlices(newRepos []string, oldRepos []string) []string {
+	for _, i := range newRepos {
+		if !utils.SliceContains(oldRepos, i) {
+			oldRepos = append(oldRepos, i)
+		}
+	}
+	return oldRepos
+}
+
+func dumpSlicesToFile(repos []string, filePath string) {
+	content := strings.Join(repos, "\n")
+	os.WriteFile(filePath, []byte(content), 0755)
 }
