@@ -22,6 +22,20 @@ Flags:
 
 const version = "1.0.0"
 
+type model struct {
+	actions  []string
+	cursor   int
+	selected map[int]struct{}
+}
+
+func initialModel() model {
+	return model{
+		actions:  []string{"stats", "list", "add", "remove", "list", "email"},
+		cursor:   0,
+		selected: make(map[int]struct{}),
+	}
+}
+
 func handleListRepos() {
 	config, err := utils.LoadConfig()
 
