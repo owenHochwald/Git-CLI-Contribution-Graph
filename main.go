@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"git_contribution_cli/scan"
 	"git_contribution_cli/stats"
-	"git_contribution_cli/utils"
+	"git_contribution_cli/tui"
 )
 
 const usage = `GitStats - A tool to visualize your git contributions across multiple repositories
@@ -19,38 +19,6 @@ Flags:
   -list          List all currently tracked repositories
   -remove string Remove a repository from tracking
   -version       Show version information`
-
-const version = "1.0.0"
-
-type model struct {
-	actions  []string
-	cursor   int
-	selected map[int]struct{}
-}
-
-func initialModel() model {
-	return model{
-		actions:  []string{"stats", "list", "add", "remove", "list", "email"},
-		cursor:   0,
-		selected: make(map[int]struct{}),
-	}
-}
-
-func handleListRepos() {
-	config, err := utils.LoadConfig()
-
-	if err != nil {
-		panic("Something went wrong! Please try again.\n")
-	}
-
-	fmt.Printf("Current email: %s\n", config.Email)
-
-	// repos := utils.ParseFileLinesToSlices(utils.GetDotFilePath())
-	fmt.Println("Currently tracked repositories:")
-	for _, repo := range config.Repos {
-		fmt.Printf("  %s\n", repo)
-	}
-}
 
 func main() {
 	var folder string
@@ -72,12 +40,12 @@ func main() {
 	flag.Parse()
 
 	if showVersion {
-		fmt.Printf("gitstats version %s\n", version)
+		fmt.Printf("gitstats version %s\n", tui.Version)
 		return
 	}
 
 	if listRepos {
-		handleListRepos()
+		tui.HandleListRepos()
 		return
 	}
 
