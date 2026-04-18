@@ -22,6 +22,22 @@ Flags:
 
 const version = "1.0.0"
 
+func handleListRepos() {
+	config, err := utils.LoadConfig()
+
+	if err != nil {
+		panic("Something went wrong! Please try again.\n")
+	}
+
+	fmt.Printf("Current email: %s\n", config.Email)
+
+	// repos := utils.ParseFileLinesToSlices(utils.GetDotFilePath())
+	fmt.Println("Currently tracked repositories:")
+	for _, repo := range config.Repos {
+		fmt.Printf("  %s\n", repo)
+	}
+}
+
 func main() {
 	var folder string
 	var email string
@@ -47,11 +63,7 @@ func main() {
 	}
 
 	if listRepos {
-		repos := utils.ParseFileLinesToSlices(scan.GetDotFilePath())
-		fmt.Println("Currently tracked repositories:")
-		for _, repo := range repos {
-			fmt.Printf("  %s\n", repo)
-		}
+		handleListRepos()
 		return
 	}
 
