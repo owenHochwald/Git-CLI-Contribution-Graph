@@ -2,7 +2,6 @@ package stats
 
 import (
 	"fmt"
-	"git_contribution_cli/scan"
 	"git_contribution_cli/utils"
 	"sort"
 	"time"
@@ -21,7 +20,7 @@ func Stats(email string) {
 }
 
 func processRepos(email string) map[int]int {
-	filePath := scan.GetDotFilePath()
+	filePath := utils.GetDotFilePath()
 	repos := utils.ParseFileLinesToSlices(filePath)
 	daysInMap := daysInLastYear
 
@@ -233,7 +232,7 @@ func printCell(val int, today bool) {
 	}
 
 	if val == 0 {
-		fmt.Printf("%s", escape + "  - " + "\033[0m")
+		fmt.Printf("%s", escape+"  - "+"\033[0m")
 		return
 	}
 

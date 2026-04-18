@@ -5,13 +5,12 @@ import (
 	"git_contribution_cli/utils"
 	"log"
 	"os"
-	"os/user"
 	"strings"
 )
 
 func Scan(folder string) {
 	repos := recursiveScanFolder(folder)
-	filePath := GetDotFilePath()
+	filePath := utils.GetDotFilePath()
 	addNewSliceElementsToFile(filePath, repos)
 	fmt.Printf("\n\nAdded %d new repos to scan\n", len(repos))
 }
@@ -57,16 +56,6 @@ func scanGitFolders(folders []string, folder string) []string {
 		}
 	}
 	return folders
-
-}
-
-func GetDotFilePath() string {
-	usr, err := user.Current()
-	if err != nil {
-		log.Fatal(err)
-	}
-	dotFile := usr.HomeDir + "/.gitstats"
-	return dotFile
 
 }
 
